@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<title>Colored List | <!-- Do Something Smart Here --></title>
+
+	<link rel="stylesheet" href="style.css" type="text/css"/>
+	<link rel="shortcut icon" type="image/x-icon" href="https://cdn.css-tricks.com/favicon.ico">
+	
+	<script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js?ver=1.3.2'></script>
+</head>
+
+<body>
+<!-- SideBar-->
+	<div id="ribbon">
+		Reminders
+
+		<ul>
+			<li>Your list automatically saves</li>
+			<li>Double-click list items to edit them</li>
+		</ul>
+	</div>
+
+<!--Main Page-->
+	<div id="main">
+		<noscript>This site just doesn't work, period, without JavaScript</noscript>
+	<!-- IF LOGGED IN -->
+		<!-- Content here -->
+	<!-- IF LOGGED OUT -->
+		<!-- Alternate content here -->
+
+	</div>
+	<?php include_once "common/sidebad.php"; ?>
+	<?php include_once "common/footer.php"; ?>
+
+<!-- Logged in -->
+	<ul id="list">
+		<li class="colorRed">
+			<span>Walk the dog</span>
+			<div class="draggertab tab"></div>
+			<div class="colortab tab"></div>
+			<div class="deletetab tab"></div>
+			<div class="donetab tab"></div>
+		</li>
+
+		<li class="colorBlue">
+			<span>Pick up dry cleaning</span>
+			<div class="draggertab tab"></div>
+			<div class="colortab tab"></div>
+			<div class="deletetab tab"></div>
+			<div class="donetab tab"></div>
+		</li>
+
+		<li class="colorGreen">
+			<span>Milk</span>
+			<div class="draggertab tab"></div>
+			<div class="colortab tab"></div>
+			<div class="deletetab tab"></div>
+			<div class="donetab tab"></div>
+		</li>
+	</ul>
+
+<!-- Adding new item to list -->
+
+	<form action="" id="add-new">
+	
+		<div>
+			<input type="text" id="new-list-item-text" name="new-list-item-text" />
+			<input type="submit" id="add-new-submit" value="Add" class="button" />
+		</div>
+	</form>
+
+<!-- Treath? -->
+	<div id ="share-area">
+		<p>Public List URL: <a href="#"> URL GOES HERE</a>
+		<small>(Nobody but YOU will be able to edit this list)</small></p>
+	</div>
+
+	<ul id="list">
+		<li class="colorRed">
+			<span>Walk the dog</span>
+		</li>
+	
+		<li class="colorBlue">
+			<span>Pic up dry cleaning</span>
+		</li>
+
+		<li class="colorGreen">
+			<span>Milk</span>
+		</li>
+	</ul>
+
+
+
+	<div id="page-wrap">
+
+		<div id="header">
+			
+			<h1><a href="/">Colored Lists</a></h1>
+			<div id="control">
+
+<!-- IF LOGGED IN -->
+				<p><a href="/logout.php" class="button">Log out</a> <a href="/account.php" class="button">Your Account</a></p>
+<!-- IF LOGGED OUT -->
+				<p><a class="button" href="/signup.php">Sign up</a> &nbsp; <a class="button" href="/login.php">Log in</a></p>
+
+<!-- END OF IF STATEMENT -->
+
+			</div>
+		</div>
+	</div>
+	<!-- Analytics here -->
+</body>
+
+</html> 
