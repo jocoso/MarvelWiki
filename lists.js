@@ -37,9 +37,12 @@ var ts = new Date().getTime();
 xhttp.onload = function(){
   var response = JSON.parse(this.responseText);
   var pre = response.data.results[0].thumbnail;
-  var result = pre.path + '/portrait_incredible.' + pre.extension;
-  var image = '<img src=' + result + '>'
+  var imgResult = pre.path + '/portrait_incredible.' + pre.extension;
+  var descResult = response.data.results[0].description;
+  var image = '<img src=' + imgResult + '>'
   document.getElementById('hulk_image').innerHTML=image;
+  document.getElementById('hulk_description').innerHTML=descResult;
+
 }
 
 var characAPI= characterAPI + '?' +
