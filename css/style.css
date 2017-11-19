@@ -1,8 +1,11 @@
 /*classes*/
 /*centered*/
-.centered{
+div.centered{
+  display: block;
+  width: 50%;
   margin: 0px auto;
 }
+
 .centered p,h1,h2,h3,h4,h5,h6{
   text-align: center;
 }
@@ -38,19 +41,19 @@ p.oblique, h1.oblique, h2.oblique, h3.oblique, h4.oblique, h5.oblique, h6.obliqu
 }
 
 /*Input text boxes of different sizes*/
-.s-input-textbox input[type="Text"]{
+input[type="Text"].l-input-textbox{
   width: 200px;
   height: 45px;
   font-size: 20px;
 }
 
-.m-input-textbox input[type="Text"]{
+input[type="Text"].m-input-textbox{
   width: 400px;
   height: 45px;
   font-size: 20px;
 }
 
-.l-input-textbox input[type="Text"]{
+input[type="Text"].l-input-textbox{
   width: 600px;
   height: 45px;
   font-size: 20px;
@@ -60,6 +63,61 @@ p.oblique, h1.oblique, h2.oblique, h3.oblique, h4.oblique, h5.oblique, h6.obliqu
 .icon-img img, input[type="Image"]{
   width: 40px;
   height: 40px;
+}
+
+/*dropdown buttons*/
+.dropdown{
+  position: relative;
+}
+
+.dropbtn{
+  background-color: rgba(1, 1, 1, 0.1);
+  color: white;
+  padding: 16px;
+  font-size: 14px;
+  width: 100px;
+  height: 45px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown-content{
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+}
+
+.dropdown-content a{
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover{
+  background-color: #f1f;
+}
+
+.dropdown:hover .dropdown-content{
+  display: block;
+}
+
+.dropdown:hover .dropbtn{
+  background-color: #3e8;
+}
+
+.container {
+    position: relative;
+    width: 400px;
+    overflow:visible; /*To get your parent to respect the floated divs*/
+}
+
+.one, .two, .three {
+    position: relative;
+    float: left; /*To get them next to each other if all else fails*/
 }
 
 /*IDs*/
@@ -80,4 +138,24 @@ p.oblique, h1.oblique, h2.oblique, h3.oblique, h4.oblique, h5.oblique, h6.obliqu
 #main-image{
   width: 350px;
   height: 400px;
+}
+
+/*Search Bar*/
+#search-type{
+  height: 50px;
+  float: left;
+}
+
+#search-bar{
+  width: 550px;
+}
+
+#searching-method{
+  width: 40%;
+  padding-bottom: 0px;
+  margin-top: 20px;
+}
+
+#search-bar{
+  margin-bottom: 100px;
 }
