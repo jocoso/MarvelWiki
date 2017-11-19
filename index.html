@@ -2,24 +2,38 @@
 <html>
 <head>
 	<title></title>
-	<link rel="stylesheet" href="style.css" type="text/css">
-
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
-
-	<script type="text/javascript" src="lists.js"></script>
-
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<script type="text/javascript" src="javaScript/script.js"></script>
 </head>
 
+<!--Here is the title-->
 <body>
-	<h1>Marvel API</h1>
-	<div id="results">
-			<p>Just testing out the Marvel API pulling some comics. For more information on the API go to <a href="https://developer.marvel.com">developer.marvel.com</p>
-	</div>
-	<div id="hulk">
-			<p id="hulk_image"></p>
-		</br>
-			<p id="hulk_description"></p>
-	</div>
-</body>
+	<header>
+		<div id="presentation" class="centered">
 
+			<h2 class="italic">MarvelwikiA</h2>
+			<p>The marvel encyclopedia</p>
+
+		</div>
+	</header>
+
+	<main>
+<!--Here goes the image-->
+		<img id="main-image" class= "centered" src="img/Daredevil.png" alt="daredevil">
+
+
+<!--Here goes the search bar-->
+		<form>
+			<div id="formcontainer" class="searchbox-centered m-input-textbox icon-img" style="text-align: center;">
+				<div="dropdowncontainer">
+				</div>
+				<input type="Text">
+				<input type="Image" src="img/save.png">
+			</div>
+		</form>
+
+	</main>
+
+</body>
 </html>

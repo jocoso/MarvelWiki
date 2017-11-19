@@ -38,8 +38,11 @@ xhttp.onload = function(){
   var response = JSON.parse(this.responseText);
   var pre = response.data.results[0].thumbnail;
   var imgResult = pre.path + '/portrait_incredible.' + pre.extension;
+  var titleResult = response.data.results[0].name;
   var descResult = response.data.results[0].description;
   var image = '<img src=' + imgResult + '>'
+  
+  document.getElementById('hulk_title').innerHTML=titleResult;
   document.getElementById('hulk_image').innerHTML=image;
   document.getElementById('hulk_description').innerHTML=descResult;
 

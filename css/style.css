@@ -1,0 +1,83 @@
+/*classes*/
+/*centered*/
+.centered{
+  margin: 0px auto;
+}
+.centered p,h1,h2,h3,h4,h5,h6{
+  text-align: center;
+}
+
+.centered img{
+  display: block;
+  margin: auto;
+}
+
+img.centered{
+  display: block;
+  margin: auto;
+}
+
+/*Font formating*/
+p.normal, h1.normal, h2.normal, h3.normal, h4.normal, h5.normal, h6.normal{
+  font-style: normal;
+}
+
+p.italic, h1.italic, h2.italic, h3.italic, h4.italic, h5.italic, h6.italic {
+  font-style: italic;
+}
+
+p.oblique, h1.oblique, h2.oblique, h3.oblique, h4.oblique, h5.oblique, h6.oblique{
+  font-style: oblique;
+}
+
+/*Use this classes when centering is specific to one kind of thing*/
+.searchbox-centered input{
+  display: inline-block;
+  margin: auto;
+  vertical-align: middle;
+}
+
+/*Input text boxes of different sizes*/
+.s-input-textbox input[type="Text"]{
+  width: 200px;
+  height: 45px;
+  font-size: 20px;
+}
+
+.m-input-textbox input[type="Text"]{
+  width: 400px;
+  height: 45px;
+  font-size: 20px;
+}
+
+.l-input-textbox input[type="Text"]{
+  width: 600px;
+  height: 45px;
+  font-size: 20px;
+}
+
+/*Imgs of different sizes*/
+.icon-img img, input[type="Image"]{
+  width: 40px;
+  height: 40px;
+}
+
+/*IDs*/
+/*presentation*/
+#presentation h2{
+  font-family: "Times New Roman", Times, serif;
+  font-size: 30px;
+  margin-top: 50px;
+  margin-bottom: 0px;
+}
+
+#presentation p{
+  font-family: serif, "Times New Roman", Times;
+  margin-top: 0px;
+}
+
+/*main image*/
+#main-image{
+  width: 350px;
+  height: 400px;
+}
