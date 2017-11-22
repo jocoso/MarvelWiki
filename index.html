@@ -11,18 +11,8 @@
 	<!--This script is used for things that pertains the page itself-->
 	<script type="text/javascript" src="javaScript/script.js"></script>
 	<!--Wereas this script is used for the API-->
-	<!--<script type="text/javascript" src="javaScript/getter.js"></script>-->
+	<script type="text/javascript" src="javaScript/getter.js"></script>
 
-	<script>
-		var otherWindow;
-		function openOther(){
-			otherWindow = window.moveTo("pageTemplate.html", "otherWindow");
-		}
-
-		function otherFunct(){
-			otherWindow.postMessage("otherFunct", "*")
-		}
-	</script>
 </head>
 
 <!--Here is the title-->
@@ -64,7 +54,7 @@
 		<div id="search-bar" class="two">
 			<form action="pageTemplate.html">
 				<input id = "text-box" class ="m-input-textbox" type="Text">
-				<input class ="icon-img" type="Image" src="img/save.png" style="vertical-align:middle;" onclick="openOther(); otherFunct()">
+				<input class ="icon-img" type="Image" src="img/save.png" style="vertical-align:middle;" onclick="setName('text-box')">
 			</form>
 		</div>
 	</div>

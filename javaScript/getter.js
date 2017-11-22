@@ -1,6 +1,21 @@
 var name="hulk";
 var searchType = " ";
+var image = "img/character.png";
 
+
+function createLayout(){
+  var charImage = document.createElement("img");
+  charImage.src = image;
+  document.body.appendChild(charImage);
+}
+
+function setName(nameID){
+  name = document.getElementById(nameID).value;
+  alert(name);
+}
+
+
+//Stuff i still don't get
 document.addEventListener("DOMContentLoaded", open);
 
 function open(){
@@ -15,51 +30,37 @@ var xhttp = new XMLHttpRequest();
 var ts = new Date().getTime();
 
 xhttp.onload = function(){
-  var response = JSON.parse(this.responseText);
-  var pre = response.data.results[0].thumbnail;
-  var imgResult = pre.path + '/portrait_incredible.' + pre.extension;
-  var titleResult = response.data.results[0].name;
-  var descResult = response.data.results[0].description;
-  var image = '<img src=' + imgResult + '>'
+    var response = JSON.parse(this.responseText);
+    var pre = response.data.results[0].thumbnail;
+    var imgResult = pre.path + '/portrait_incredible.' + pre.extension;
+    var titleResult = response.data.results[0].name;
+    var descResult = response.data.results[0].description;
+    var image = imgResult
 
-  // document.getElementById('title').innerHTML=titleResult;
-  // document.getElementById('image').innerHTML=image;
-  // document.getElementById('description').innerHTML=descResult;
-  createLayout();
+    // document.getElementById('title').innerHTML=titleResult;
+    // document.getElementById('image').innerHTML=image;
+    // document.getElementById('description').innerHTML=descResult;
 
-}
+  }
 
-var characAPI= characterAPI + '?' +
-  'hash=' + CryptoJS.MD5(ts + privateKey + publicKey).toString() + '&' +
-  'apikey=' + publicKey + '&' +
-  'ts=' + ts;
+  var characAPI= characterAPI + '?' +
+    'hash=' + CryptoJS.MD5(ts + privateKey + publicKey).toString() + '&' +
+    'apikey=' + publicKey + '&' +
+    'ts=' + ts;
 
 
-var apiRequest = comicAPI + '?' +
-      'hash=' +  CryptoJS.MD5(ts+ privateKey + publicKey).toString() + '&' +
-      'apikey=' + publicKey + '&' +
-      'ts=' + ts;
+  var apiRequest = comicAPI + '?' +
+        'hash=' +  CryptoJS.MD5(ts+ privateKey + publicKey).toString() + '&' +
+        'apikey=' + publicKey + '&' +
+        'ts=' + ts;
 
-function setName(valueId){
-  name = document.getElementById(valueId).value;
-}
 
-function getName(){
-  return name;
-}
+  //if(searchType === 'Characters'){-->
+    //alert("worked");
+    var characterRequest = characAPI + '&nameStartsWith=' + name;
 
-function createLayout(){
-  var charImage = document.createElement("IMG");
-  image.src=image;
-  document.body.appendChild(charImage);
-}
-
-//if(searchType === 'Characters'){-->
-  //alert("worked");
-  var characterRequest = characAPI + '&nameStartsWith=' + name;
-
-  //xhttp.open("GET", apiRequest, true);
-  xhttp.open("GET", characterRequest, true);
-  xhttp.setRequestHeader('Content-Type', 'application/json');
-  xhttp.send();
+    //xhttp.open("GET", apiRequest, true);
+    xhttp.open("GET", characterRequest, true);
+    xhttp.setRequestHeader('Content-Type', 'application/json');
+    xhttp.send();
 }
