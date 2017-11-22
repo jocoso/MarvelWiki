@@ -1,4 +1,4 @@
-var name="hulk";
+var name=" ";
 var searchType = " ";
 var image = "img/character.png";
 
@@ -23,7 +23,7 @@ xhttp.onload = function(){
     var imgResult = pre.path + '/portrait_incredible.' + pre.extension;
     var titleResult = response.data.results[0].name;
     var descResult = response.data.results[0].description;
-    var image = imgResult
+    image = imgResult
 
     // document.getElementById('title').innerHTML=titleResult;
     // document.getElementById('image').innerHTML=image;

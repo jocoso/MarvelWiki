@@ -5,6 +5,13 @@ function changeButtonName(buttonName, content){
 }
 //
 
+function whatever(nameID){
+  var name = document.getElementById(nameID).value;
+  window.location.href = "pageTemplate.html?s="+ name;
+}
+
+
+
 //Avoid the annoying upward scrolling everytime the user select a type selection
 //In the dropdown box.
 window.onload = function(){
@@ -35,9 +42,4 @@ function setURLParameter(name,value){
 		search = '?'+name + '=' +encodeURIComponent(value);
 	}
 	History.pushState({state:History.getStateId()+1},document.title,search);
-}
-
-function whatever(nameID){
-  var name = document.getElementById(nameID).value;
-  window.location.href = '../pageTemplate.html?s='+ name;
 }
