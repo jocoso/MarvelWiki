@@ -3,18 +3,6 @@ var searchType = " ";
 var image = "img/character.png";
 
 
-function createLayout(){
-  var charImage = document.createElement("img");
-  charImage.src = image;
-  document.body.appendChild(charImage);
-}
-
-function setName(nameID){
-  name = document.getElementById(nameID).value;
-  alert(name);
-}
-
-
 //Stuff i still don't get
 document.addEventListener("DOMContentLoaded", open);
 
@@ -63,4 +51,11 @@ xhttp.onload = function(){
     xhttp.open("GET", characterRequest, true);
     xhttp.setRequestHeader('Content-Type', 'application/json');
     xhttp.send();
+}
+
+
+function createLayout(){
+  var charImage = document.createElement("img");
+  charImage.src = image;
+  document.body.appendChild(charImage);
 }

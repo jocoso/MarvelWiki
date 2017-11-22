@@ -19,3 +19,25 @@ function redirect(ev){
   ev.preventDefault();
 }
 //
+function getURLParameter(name) {
+    return decodeURIComponent(
+        (RegExp('[?|&]'+name + '=' + '(.+?)(&|$)').exec(location.search)||[null,null])[1]
+    );
+}
+
+function setURLParameter(name,value){
+	var search;
+	if(getURLParameter(name)){
+		search =location.search.replace(new RegExp('([?|&]'+name + '=)' + '(.+?)(&|$)'),"$1"+encodeURIComponent(value)+"$3");
+	}else if(location.search.length){
+		search = location.search +'&'+name + '=' +encodeURIComponent(value);
+	}else{
+		search = '?'+name + '=' +encodeURIComponent(value);
+	}
+	History.pushState({state:History.getStateId()+1},document.title,search);
+}
+
+function whatever(nameID){
+  var name = document.getElementById(nameID).value;
+  window.location.href = '../pageTemplate.html?s='+ name;
+}
