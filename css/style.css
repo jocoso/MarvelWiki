@@ -65,6 +65,10 @@ input[type="Text"].l-input-textbox{
   height: 40px;
 }
 
+img.s-size-image{
+  width: 15%;
+}
+
 /*dropdown buttons*/
 .dropdown{
   position: relative;

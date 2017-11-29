@@ -26,11 +26,6 @@ function redirect(ev){
   ev.preventDefault();
 }
 //
-function getURLParameter(name) {
-    return decodeURIComponent(
-        (RegExp('[?|&]'+name + '=' + '(.+?)(&|$)').exec(location.search)||[null,null])[1]
-    );
-}
 
 function setURLParameter(name,value){
 	var search;
