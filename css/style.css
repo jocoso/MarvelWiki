@@ -222,6 +222,14 @@ img.s-size-image{
 	left: 0;
 }
 
+
+.presentation-img {
+    display:block;
+    margin: 0 auto;
+    height: 40%;
+
+}
+
 .front {
 	/*background: url(http://davidwalsh.name/demo/dwflip.jpg) 0 0 no-repeat;*/
 	z-index: 2;
