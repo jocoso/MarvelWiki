@@ -224,10 +224,7 @@ img.s-size-image{
 
 
 .presentation-img {
-    display:block;
-    margin: 0 auto;
-    height: 40%;
-
+        position: relative;
 }
 
 .front {
@@ -252,15 +249,14 @@ img.s-size-image{
 	font-family: Courier;
 	padding: 5px 10px;
 	border-radius: 5px;
-	bottom: 60px;
-	left: 25%;
+	left: 5%;
 	position: absolute;
 	text-shadow: 0.1em 0.1em 0.05em #333;
 
-	-webkit-transform: rotate(-20deg);
+	/*-webkit-transform: rotate(-20deg);
 	-moz-transform: rotate(-20deg);
   -o-transform: rotate(-20deg);
-	transform: rotate(-20deg);
+	transform: rotate(-20deg);*/
 }
 
 .back-logo {

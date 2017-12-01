@@ -67,11 +67,12 @@ function touch(){
      this.classList.toggle('hover');
 }
 
-function createButton(src, desc){
+function createButton(charactername, src, desc){
     var flip_container = document.createElement("DIV");
     var flipper = document.createElement("DIV");
     var front = document.createElement("DIV");
-    var presentation_img = document.createElement("IMG");
+    var name = document.createElement("SPAN");
+    //var presentation_img = document.createElement("IMG");
     var back = document.createElement("DIV")
     var back_logo = document.createElement("DIV");
     var back_title = document.createElement("DIV");
@@ -80,22 +81,26 @@ function createButton(src, desc){
     flip_container.className = "flip-container";
     flipper.className = "flipper";
     front.className = "front";
-    presentation_img.className = "presentation-img"
+    name.className = "name";
+    //presentation_img.className = "presentation-img"
     back.className = "back";
     back_logo.className = "back-logo";
     back_title.className = "back-title";
     description.className = "back-description";
 
-    //front.style.background = "url(" + src + ") 0 0 no-repeat";
-    presentation_img.src = src;
+    front.style.background = "url(" + src + ") 0 0 no-repeat";
+    front.style.backgroundSize = "cover";
+    name.innerHTML = charactername;
+    //presentation_img.src = src;
     description.innerHTML = desc;
 
     flip_container.addEventListener("touchstart", touch , {capture: true});
     flip_container.appendChild(flipper);
     flipper.appendChild(front);
-    front.innerHTML = "<span class='name'></span>";
-    flipper.appendChild(presentation_img);
     flipper.appendChild(back);
+    front.appendChild(name);
+    //front.appendChild(presentation_img);
+    //front.appendChild(back);
     back.appendChild(back_logo);
     back.appendChild(back_title);
     back.appendChild(description);
@@ -112,9 +117,10 @@ function searchResponse(){
     var response = JSON.parse(this.responseText);
     for(var i = 0; i < response.data.results.length; i++){
         var character = response.data.results[i];
-        var image = character.thumbnail.path + '/landscape_incredible.' + character.thumbnail.extension;
+        var image = character.thumbnail.path + '/portrait_uncanny.' + character.thumbnail.extension;
         var description = character.description;
-         document.body.appendChild(createButton(image, description));
+        var name = character.name;
+         document.body.appendChild(createButton(name, image, description));
         //document.body.innerHtml += createButton(image);
     }
 
