@@ -67,7 +67,7 @@ function touch(){
      this.classList.toggle('hover');
 }
 
-function createButton(src){
+function createButton(src, desc){
     var flip_container = document.createElement("DIV");
     var flipper = document.createElement("DIV");
     var front = document.createElement("DIV");
@@ -76,7 +76,6 @@ function createButton(src){
     var back_title = document.createElement("DIV");
     var description = document.createElement("P")
 
-
     flip_container.className = "flip-container";
     flipper.className = "flipper";
     front.className = "front";
@@ -84,6 +83,11 @@ function createButton(src){
     back_logo.className = "back-logo";
     back_title.className = "back-title";
     description.className = "back-description";
+
+    console.log(src);
+
+    front.style.background = "url(" + src + ") 0 0 no-repeat";
+    description.innerHTML = desc;
 
     flip_container.addEventListener("touchstart", touch , {capture: true});
     flip_container.appendChild(flipper);
@@ -107,7 +111,8 @@ function searchResponse(){
     for(var i = 0; i < response.data.results.length; i++){
         var character = response.data.results[i];
         var image = character.thumbnail.path + '/portrait_incredible.' + character.thumbnail.extension;
-         document.body.appendChild(createButton(image));
+        var description = character.description;
+         document.body.appendChild(createButton(image, description));
         //document.body.innerHtml += createButton(image);
     }
 
