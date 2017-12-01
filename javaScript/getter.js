@@ -16,57 +16,114 @@ var characterAPI = marvelAPI + '/characters';
 var character = new XMLHttpRequest();
 var comics = new XMLHttpRequest();
 
-var ts = new Date().getTime();
 
-character.onload = function(){
+function get(url, responseFunction){
+  var request = new XMLHttpRequest();
+  request.open("GET", url, true);
+  request.setRequestHeader('Content-Type', 'application/json');
+  request.onload = responseFunction;
+  request.send();
+}
+
+function getSearchUrl(name){
+    var ts = new Date().getTime();
+    var characAPI =  characterAPI + '?' +
+        'hash=' + CryptoJS.MD5(ts + privateKey + publicKey).toString() + '&' +
+        'apikey=' + publicKey + '&' +
+        'ts=' + ts;
+
+    return characAPI + '&nameStartsWith=' + name;
+}
+
+function getCharacterUrl(id){
+    var charComicAPI = marvelAPI + '/characters/'+ id.toString();
+    var ts = new Date().getTime();
+
+    return charComicAPI + '?' +
+        'hash=' + CryptoJS.MD5(ts+ privateKey + publicKey).toString() + '&' +
+        'apikey=' + publicKey + '&' +
+        'ts=' + ts;
+}
+
+function getComicUrl(id){
+    var charComicAPI = marvelAPI + '/characters/'+ id.toString() +'/comics';
+    var ts = new Date().getTime();
+
+    return charComicAPI + '?' +
+        'hash=' + CryptoJS.MD5(ts+ privateKey + publicKey).toString() + '&' +
+        'apikey=' + publicKey + '&' +
+        'ts=' + ts;
+}
+
+function characterResponse(){
     var response = JSON.parse(this.responseText);
-    var pre = response.data.results[0].thumbnail;
-    var imgResult = pre.path + '/portrait_incredible.' + pre.extension;
-    var titleResult = response.data.results[0].name;
-    var descResult = response.data.results[0].description;
-    image = imgResult;
-    var id = response.data.results[0].id;
-    charComicAPI = marvelAPI + '/characters/'+ id.toString() +'/comics';
-    // document.getElementById('title').innerHTML=titleResult;
-    // document.getElementById('image').innerHTML=image;
-    // document.getElementById('description').innerHTML=descResult;
+    var pre = response.data.results[0];
+
+    description = pre.description;
+    document.body.innerHTML+=description;
+}
+
+function touch(){
+     this.classList.toggle('hover');
+}
+
+function createButton(src){
+    var flip_container = document.createElement("DIV");
+    var flipper = document.createElement("DIV");
+    var front = document.createElement("DIV");
+    var back = document.createElement("DIV")
+    var back_logo = document.createElement("DIV");
+    var back_title = document.createElement("DIV");
+    var description = document.createElement("P")
+
+
+    flip_container.className = "flip-container";
+    flipper.className = "flipper";
+    front.className = "front";
+    back.className = "back";
+    back_logo.className = "back-logo";
+    back_title.className = "back-title";
+    description.className = "back-description";
+
+    flip_container.addEventListener("touchstart", touch , {capture: true});
+    flip_container.appendChild(flipper);
+    flipper.appendChild(front);
+    front.innerHTML = "<span class='name'></span>";
+    flipper.appendChild(back);
+    back.appendChild(back_logo);
+    back.appendChild(back_title);
+    back.appendChild(description);
+
+    return flip_container;
+
+
+    // var img = document.createElement("IMG");
+    // img.src = src;
+    // return img;
+}
+
+function searchResponse(){
+    var response = JSON.parse(this.responseText);
+    for(var i = 0; i < response.data.results.length; i++){
+        var character = response.data.results[i];
+        var image = character.thumbnail.path + '/portrait_incredible.' + character.thumbnail.extension;
+         document.body.appendChild(createButton(image));
+        //document.body.innerHtml += createButton(image);
+    }
 
 }
 
-comics.onload = function(){
+function comicsResponse(){
     var response = JSON.parse(this.responseText);
     var pre = response.data.results[0];
 
     for(var i = 0; i < pre.creators.length; i++){
-      creator_s[i] = pre.creators[i].items[0].name;
+        creators_s[i] = pre.creators[i].items[0].name;
     }
-
-
 }
 
-  var characAPI= characterAPI + '?' +
-    'hash=' + CryptoJS.MD5(ts + privateKey + publicKey).toString() + '&' +
-    'apikey=' + publicKey + '&' +
-    'ts=' + ts;
-
-
-  var cComicAPI= charComicAPI + '?' +
-        'hash=' + CryptoJS.MD5(ts+ privateKey + publicKey).toString() + '&' +
-        'apikey=' + publicKey + '&' +
-        'ts=' + ts;
-
-
-    var characterRequest = characAPI + '&nameStartsWith=' + name;
-    //var charComicRequest = cComicAPI + '&characterId=' + id;
-
-    //xhttp.open("GET", apiRequest, true);
-    character.open("GET", characterRequest, true);
-    character.setRequestHeader('Content-Type', 'application/json');
-    character.send();
-
-    comics.open("GET", charComicRequest, true);
-    character.setRequestHeader('Content-Type', 'application/json');
-    character.send();
+    var characterRequest = getSearchUrl(name);
+    get(characterRequest, searchResponse)
 }
 
 
