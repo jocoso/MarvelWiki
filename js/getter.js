@@ -67,7 +67,7 @@ function touch(){
      this.classList.toggle('hover');
 }
 
-function createButton(charactername, src, desc){
+function createCard(charactername, src, desc){
     var flip_container = document.createElement("DIV");
     var flipper = document.createElement("DIV");
     var front = document.createElement("DIV");
@@ -88,6 +88,7 @@ function createButton(charactername, src, desc){
     back_title.className = "back-title";
     description.className = "back-description";
 
+
     front.style.background = "url(" + src + ") 0 0 no-repeat";
     front.style.backgroundSize = "cover";
     name.innerHTML = charactername;
@@ -99,31 +100,56 @@ function createButton(charactername, src, desc){
     flipper.appendChild(front);
     flipper.appendChild(back);
     front.appendChild(name);
-    //front.appendChild(presentation_img);
-    //front.appendChild(back);
     back.appendChild(back_logo);
     back.appendChild(back_title);
     back.appendChild(description);
 
-    return flip_container;
+    var cardTemplate = `<div class="col s12 m4">
+         <div class="card">
+         <img class="responsive-img" src="${src}">
+        <div>
+    </div>`;
+    var card = document.createElement('div');
+    card.innerHTML = cardTemplate;
+    return card;
+}
 
+function noCards() {
+    var a = 20;
+    return a;
+}
 
-    // var img = document.createElement("IMG");
-    // img.src = src;
-    // return img;
+function previous(index, array){
+    if(index >= 0){
+        index -= 1;
+    }else{
+        index = array.length;
+    }
+
+    return index;
+}
+function next(index, array){
+    if(index < array.length){
+        index += 1;
+    } else {
+        index = 0;
+    }
+    return index;
 }
 
 function searchResponse(){
+    var image = [];
+    var description = [];
+    var name = [];
+
     var response = JSON.parse(this.responseText);
     for(var i = 0; i < response.data.results.length; i++){
         var character = response.data.results[i];
-        var image = character.thumbnail.path + '/portrait_uncanny.' + character.thumbnail.extension;
-        var description = character.description;
-        var name = character.name;
-         document.body.appendChild(createButton(name, image, description));
-        //document.body.innerHtml += createButton(image);
+        image[i] = character.thumbnail.path + '/portrait_uncanny.' + character.thumbnail.extension;
+        description[i] = character.description;
+        name[i] = character.name;
+        document.getElementById("card-row").appendChild(createCard(name[i], image[i], description[i]));
     }
-
 }
 
 function comicsResponse(){
@@ -148,5 +174,5 @@ function createLayout(img, description){
 function getURLParameter(name) {
     return decodeURIComponent(
         (RegExp('[?|&]'+name + '=' + '(.+?)(&|$)').exec(location.search)||[null,null])[1]
-    );
+    )
 }

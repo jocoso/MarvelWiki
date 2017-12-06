@@ -180,6 +180,7 @@ img.s-size-image{
   perspective: 1000;
 
 	border: 1px solid #ccc;
+    border-radius: 10px;
 }
 
 	.flip-container:hover .flipper,
@@ -223,13 +224,29 @@ img.s-size-image{
 }
 
 
-.presentation-img {
-        position: relative;
+#fade-button {
+        width: 50px;
+        height: 50px;
+        border: 2px solid black;
+        padding: 20px;
+        background-color: rgba(0, 0, 0, 0.25);
+}
+
+#fade-button:hover{
+    background-color: rgba(0, 0, 0, 0.50);
+}
+
+#fade-button p{
+    color: black;
+    font-size: 10px;
+    text-align: center;
 }
 
 .front {
 	/*background: url(http://davidwalsh.name/demo/dwflip.jpg) 0 0 no-repeat;*/
 	z-index: 2;
+    border: 5px solid black;
+    border-radius: 10px;
 }
 
 .back {
@@ -239,18 +256,18 @@ img.s-size-image{
 	transform: rotateY(180deg);
 
 	background: #f8f8f8;
+    border-radius: 10px;
 }
 
 .front .name {
 	font-size: 2em;
-	display: inline-block;
+	display: block;
 	background: rgba(33, 33, 33, 0.9);
 	color: #f8f8f8;
 	font-family: Courier;
 	padding: 5px 10px;
 	border-radius: 5px;
 	left: 5%;
-	position: absolute;
 	text-shadow: 0.1em 0.1em 0.05em #333;
 
 	/*-webkit-transform: rotate(-20deg);
@@ -271,7 +288,6 @@ img.s-size-image{
 .back-title {
 	font-weight: bold;
 	color: #00304a;
-	position: absolute;
 	top: 180px;
 	left: 0;
 	right: 0;
@@ -282,8 +298,7 @@ img.s-size-image{
 }
 
 .back p {
-	position: absolute;
-	bottom: 40px;
+	top: 2px;
 	left: 0;
 	right: 0;
 	text-align: center;
