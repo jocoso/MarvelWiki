@@ -4,6 +4,7 @@ var name= null;     //The name is to look for a superheroe
 var charComicAPI;   //Why is this here again?
 var selectedItems = []; //A list of all the selected items
 var allCardsDisplayed = []; //List of all items... Coming soon
+var namesAsked = [] //Store all names that were previously asked
 //I am writing this to complete the Frame... Looks quite cute
 
 
@@ -40,24 +41,43 @@ function handle(e){
 
 
 
-//ToggleSelection: make border look gross and place the card into a
+function nameRepeated(name2Search){
+    //Is gonna traverse list of asked names and if the name to search
+    //is already in the list is going to return false
+    //otherwise it is gonna return true
+
+    for(var i = 0; i < namesAsked.length; i++){
+        if(name2Search === namesAsked[i]){
+            return true;
+        }
+    }
+
+    return false;
+}
+
+
+
+
+
+
+//ToggleSelection: make button look gross and place the card into a
 //special array i called selectedItems. Also take it out if the card is pressed
 //once more.
 function toggleSelection(id){
-    //The default border
-    var defaultBorder = '3px solid blue';
+    //The default color
+    var defaultColor = 'blue';
 
-    //If the image don't have the default border put it and make it member
-    //of the selective selectiveItem array. Otherwise destroy the border
+    //If the image don't have the default color put it and make it member
+    //of the selective selectiveItem array. Otherwise destroy the color
     //and exiliate the object in shame.
-    if(document.getElementById(id).style.border !== defaultBorder){
-        document.getElementById(id).style.border= defaultBorder;
+    if(document.getElementById(id).style.backgroundColor !== defaultColor){
+        document.getElementById(id).style.backgroundColor = defaultColor;
         selectedItems[selectedItems.length] = id;
         console.log("Add");     //DEBUG
         console.log(selectedItems);//DEBUG
     }else{
 
-        document.getElementById(id).style.border='0px';
+        document.getElementById(id).style.backgroundColor = 'orange';
 
         for(var i = 0; i < selectedItems.length; i++)
             if(selectedItems[i] == id){
@@ -66,27 +86,6 @@ function toggleSelection(id){
                 console.log(selectedItems);//DEBUG
                 break; //No need to keep looking after it find what it was looking for
             }
-    }
-}
-
-
-//This function will clean all the cards in the screen but those selected
-function removeButSelected(){
-    var isInThere = false;
-    for(var i = 0; i < allCardsDisplayed.length; i++){
-        console.log("getting deeper");
-        for(var j = 0; j < selectedItems.length; j++){
-            if(allCardsDisplayed[i] == selectedItems[j]){
-                console.log("it was there")
-                isInThere = true;
-                break;
-            }
-        }
-        if(!isInThere){
-            var tmp = document.getElementById(allCardsDisplayed[i]);
-            tmp.remove();
-        }
-        isInThere = false;
     }
 }
 
@@ -187,10 +186,10 @@ function createCard(charactername, src, desc){
 
     //Create the 'card' using materialize
     var cardTemplate = `<div class="col s12 m4">
-         <div id="${src}" class="card">
+         <div class="card">
          <img class="responsive-img" src="${src}">
          <a id ="button" class="btn-floating halfway-fab waves-effect waves-light red" onclick='toggleSelection("${src}")'>
-         <i class="material-icons">add</i></a>
+         <i  id="${src}" class="material-icons">add</i></a>
         <div>
     </div>`;
 
@@ -222,11 +221,13 @@ function searchResponse(){
     var name = [];
 
     var response = JSON.parse(this.responseText);
+
+    //All these things are just going to happen if the name being asked is not in name list already.
     for(var i = 0; i < response.data.results.length; i++){
         var character = response.data.results[i];
+        name[i] = character.name;
         image[i] = character.thumbnail.path + '/portrait_uncanny.' + character.thumbnail.extension;
         description[i] = character.description;
-        name[i] = character.name;
         document.getElementById("card-row").appendChild(createCard(name[i], image[i], description[i]));
     }
     console.log(allCardsDisplayed);
@@ -246,9 +247,12 @@ function comicsResponse(){
         creators_s[i] = pre.creators[i].items[0].name;
     }
 }
-
-    var characterRequest = getSearchUrl(name);
-    get(characterRequest, searchResponse)
+    //Check if the name was already asked. If not look for it,
+    if(!nameRepeated(name)){
+        var characterRequest = getSearchUrl(name);
+        get(characterRequest, searchResponse);
+        namesAsked[namesAsked.length] = name;
+    }
 }
 
 
