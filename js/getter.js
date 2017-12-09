@@ -51,7 +51,7 @@ function nameRepeated(name2Search){
             return true;
         }
     }
-
+    namesAsked[namesAsked.length] = name2Search;
     return false;
 }
 
@@ -77,7 +77,7 @@ function toggleSelection(id){
         console.log(selectedItems);//DEBUG
     }else{
 
-        document.getElementById(id).style.backgroundColor = 'orange';
+        document.getElementById(id).style.backgroundColor = '#f44336';
 
         for(var i = 0; i < selectedItems.length; i++)
             if(selectedItems[i] == id){
@@ -219,16 +219,22 @@ function searchResponse(){
     var image = [];
     var description = [];
     var name = [];
+    var alreadyCalled = true;
 
     var response = JSON.parse(this.responseText);
-
+    var noImage = 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny.jpg'
     //All these things are just going to happen if the name being asked is not in name list already.
     for(var i = 0; i < response.data.results.length; i++){
         var character = response.data.results[i];
         name[i] = character.name;
         image[i] = character.thumbnail.path + '/portrait_uncanny.' + character.thumbnail.extension;
         description[i] = character.description;
-        document.getElementById("card-row").appendChild(createCard(name[i], image[i], description[i]));
+
+
+        if(image[i] !== noImage && !nameRepeated(character.id)){
+            document.getElementById("card-row").appendChild(createCard(name[i], image[i], description[i]));
+            console.log(character.id);
+        }
     }
     console.log(allCardsDisplayed);
 }
@@ -242,17 +248,13 @@ function searchResponse(){
 function comicsResponse(){
     var response = JSON.parse(this.responseText);
     var pre = response.data.results[0];
-
     for(var i = 0; i < pre.creators.length; i++){
         creators_s[i] = pre.creators[i].items[0].name;
     }
 }
     //Check if the name was already asked. If not look for it,
-    if(!nameRepeated(name)){
-        var characterRequest = getSearchUrl(name);
-        get(characterRequest, searchResponse);
-        namesAsked[namesAsked.length] = name;
-    }
+    var characterRequest = getSearchUrl(name);
+    get(characterRequest, searchResponse);
 }
 
 
