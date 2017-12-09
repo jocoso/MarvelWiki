@@ -184,12 +184,14 @@ function touch(){
 function createCard(charactername, src, desc){
 
     //Create the 'card' using materialize
-    var cardTemplate = `<div class="col s12 m4">
-         <div class="card">
+    var cardTemplate = ` <!--<div class="column">-->
+        <div class="col s12 m4">
+        <div class="card" style="border-radius: 7px; background-color: rgba(0,0,0,0.3);">
          <span class="card-title">${charactername}</span>
-         <img class="responsive-img" src="${src}">
-         <a id ="button" class="btn-floating halfway-fab waves-effect waves-light red" onclick='toggleSelection("${src}")'>
-         <i id="${src}" class="material-icons">add</i></a>
+         <img class="responsive-img" src="${src}" style="border-radius: 7px;">
+          <a id ="button" class="btn-floating halfway-fab waves-effect waves-light red" onclick='toggleSelection("${src}")'>
+          <i id="${src}" class="material-icons">add</i></a>
+         </img>
         <div>
     </div>`;
 
