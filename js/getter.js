@@ -1,4 +1,3 @@
-
 //Global variables to be used in the program
 var name= null;     //The name is to look for a superheroe
 var charComicAPI;   //Why is this here again?
@@ -187,9 +186,10 @@ function createCard(charactername, src, desc){
     //Create the 'card' using materialize
     var cardTemplate = `<div class="col s12 m4">
          <div class="card">
+         <span class="card-title">${charactername}</span>
          <img class="responsive-img" src="${src}">
          <a id ="button" class="btn-floating halfway-fab waves-effect waves-light red" onclick='toggleSelection("${src}")'>
-         <i  id="${src}" class="material-icons">add</i></a>
+         <i id="${src}" class="material-icons">add</i></a>
         <div>
     </div>`;
 
