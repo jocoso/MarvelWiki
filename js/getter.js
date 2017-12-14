@@ -50,6 +50,9 @@ function nameRepeated(name2Search){
 }
 
 
+function debugclick(){
+    console.log("i clicked");
+}
 
 
 
@@ -175,11 +178,13 @@ function open(){
     function touch(){
         this.classList.toggle('hover');
     }
+
     //It creates a card? I am not sure anymore.
-    function createCard(charactername, src, desc){
+    function createCard(charactername, src, desc, id){
 
         //Create the 'card' using materialize
         var cardTemplate = `
+        <div data-target="${id}" class="modal-trigger">
         <div class="column">
             <div class="col s12 m3">
             <div class="card" style="border-radius: 7px;">
@@ -187,7 +192,9 @@ function open(){
                     <img class="responsive-img" src="${src}" style="border-radius: 7px;">
                     <span class="card-title">${charactername}</span>
                 </div>
-            <div>
+            </div>
+            </div>
+        </div>
         </div>`;
 
         allCardsDisplayed[allCardsDisplayed.length] = `"${src}"`;
@@ -196,18 +203,24 @@ function open(){
         return card;
     }
 
+    function createModel(charactername, src, desc, id){
+        var modelTemplate = `
+        <!--<div id="${id}" class="modal">-->
+          <div class="modal-content">
+            <h4>${desc}</h4>
+            <p>A bunch of text</p>
+          </div>
+          <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+          </div>
+        `;
 
-
-
-
-
-    //This class return the number 20... If you ever need it
-    function noCards() {
-        var a = 20;
-        return a;
+        var model = document.createElement('div');
+        model.id = `"${id}"`;
+        model.class = "modal";
+        model.innerHTML = modelTemplate;
+        return model;
     }
-
-
 
 
 
@@ -228,13 +241,17 @@ function open(){
             description[i] = character.description;
 
 
+
             if(image[i] !== noImage && !nameRepeated(character.id)){
                 document.getElementById("card-row").insertBefore(
-                    createCard(name[i], image[i], description[i]),
-                    document.getElementById("card-row").firstChild
-                );
-                console.log(character.id);
+                    createCard(name[i], image[i], description[i], character.id),
+                    document.getElementById("card-row").firstChild );
+
+                document.getElementById("stuff").insertBefore(
+                    createModel(name[i], image[i], description[i], character.id),
+                    document.getElementById("stuff").firstChild );
             }
+
         }
         console.log(allCardsDisplayed);
     }
@@ -270,5 +287,7 @@ function getURLParameter(name) {
 
 $(document).ready(function() {
     $('.modal').modal();
+    $('.trigger-modal').modal();
 });
+
 open();
