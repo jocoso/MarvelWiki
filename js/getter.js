@@ -44,10 +44,6 @@ function nameRepeated(name2Search){
     return false;
 }
 
-function debugclick(){
-    console.log("i clicked");
-}
-
 //ToggleSelection: make button look gross and place the card into a
 //special array i called selectedItems. Also take it out if the card is pressed
 //once more.
@@ -61,8 +57,6 @@ function toggleSelection(id){
     if(document.getElementById(id).style.backgroundColor !== defaultColor){
         document.getElementById(id).style.backgroundColor = defaultColor;
         selectedItems[selectedItems.length] = id;
-        console.log("Add");     //DEBUG
-        console.log(selectedItems);//DEBUG
     }else{
 
         document.getElementById(id).style.backgroundColor = '#f44336';
@@ -70,8 +64,6 @@ function toggleSelection(id){
         for(var i = 0; i < selectedItems.length; i++)
             if(selectedItems[i] == id){
                 selectedItems.splice(i, 1); //Erase the item in i from array... Very useful
-                console.log("Erase");//DEBUG
-                console.log(selectedItems);//DEBUG
                 break; //No need to keep looking after it find what it was looking for
             }
     }
@@ -172,9 +164,6 @@ function open(){
         var events = '';
         var series = '';
         var comics = '';
-        console.log('Events', character.events.items);
-        console.log('Series', character.series.items);
-        console.log('Comics', character.comics.items);
         if (character.events.items.length) {
             events = `<ul/><b style="font-size: 20px;>Events</b>`;
             for (var i = 0; i < character.events.items.length; i++) {
@@ -241,7 +230,6 @@ function open(){
             $('.modal').modal();
             $('.trigger-modal').modal();
         }
-        console.log(allCardsDisplayed);
     }
 
     function comicsResponse(){
