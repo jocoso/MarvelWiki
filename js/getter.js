@@ -6,11 +6,6 @@ var allCardsDisplayed = []; //List of all items... Coming soon
 var namesAsked = [] //Store all names that were previously asked
 //I am writing this to complete the Frame... Looks quite cute
 
-
-
-
-
-
 //I made this function for the search bar. So it searched for a character everytime
 //the user wrote something and pressed enter. 20/10 very useful
 function handle(e){
@@ -49,13 +44,9 @@ function nameRepeated(name2Search){
     return false;
 }
 
-
 function debugclick(){
     console.log("i clicked");
 }
-
-
-
 
 //ToggleSelection: make button look gross and place the card into a
 //special array i called selectedItems. Also take it out if the card is pressed
@@ -77,20 +68,14 @@ function toggleSelection(id){
         document.getElementById(id).style.backgroundColor = '#f44336';
 
         for(var i = 0; i < selectedItems.length; i++)
-        if(selectedItems[i] == id){
-            selectedItems.splice(i, 1); //Erase the item in i from array... Very useful
-            console.log("Erase");//DEBUG
-            console.log(selectedItems);//DEBUG
-            break; //No need to keep looking after it find what it was looking for
-        }
+            if(selectedItems[i] == id){
+                selectedItems.splice(i, 1); //Erase the item in i from array... Very useful
+                console.log("Erase");//DEBUG
+                console.log(selectedItems);//DEBUG
+                break; //No need to keep looking after it find what it was looking for
+            }
     }
 }
-
-
-
-
-
-
 
 //Heart of this project and also the most annoying part
 function open(){
@@ -115,56 +100,36 @@ function open(){
         request.send();
     }
 
-
-
-
-
-
     //My desires to comment died here. RIP
     function getSearchUrl(name){
         var ts = new Date().getTime();
         var characAPI =  characterAPI + '?' +
-        'hash=' + CryptoJS.MD5(ts + privateKey + publicKey).toString() + '&' +
-        'apikey=' + publicKey + '&' +
-        'ts=' + ts;
+            'hash=' + CryptoJS.MD5(ts + privateKey + publicKey).toString() + '&' +
+            'apikey=' + publicKey + '&' +
+            'ts=' + ts;
 
         return characAPI + '&nameStartsWith=' + name;
     }
-
-
-
-
-
 
     function getCharacterUrl(id){
         var charComicAPI = marvelAPI + '/characters/'+ id.toString();
         var ts = new Date().getTime();
 
         return charComicAPI + '?' +
-        'hash=' + CryptoJS.MD5(ts+ privateKey + publicKey).toString() + '&' +
-        'apikey=' + publicKey + '&' +
-        'ts=' + ts;
+            'hash=' + CryptoJS.MD5(ts+ privateKey + publicKey).toString() + '&' +
+            'apikey=' + publicKey + '&' +
+            'ts=' + ts;
     }
-
-
-
-
-
 
     function getComicUrl(id){
         var charComicAPI = marvelAPI + '/characters/'+ id.toString() +'/comics';
         var ts = new Date().getTime();
 
         return charComicAPI + '?' +
-        'hash=' + CryptoJS.MD5(ts+ privateKey + publicKey).toString() + '&' +
-        'apikey=' + publicKey + '&' +
-        'ts=' + ts;
+            'hash=' + CryptoJS.MD5(ts+ privateKey + publicKey).toString() + '&' +
+            'apikey=' + publicKey + '&' +
+            'ts=' + ts;
     }
-
-
-
-
-
 
     function characterResponse(){
         var response = JSON.parse(this.responseText);
@@ -184,7 +149,7 @@ function open(){
 
         //Create the 'card' using materialize
         var cardTemplate = `
-        <div data-target="${id}" class="modal-trigger">
+        <div data-target="${id}" class="modal-trigger" style="cursor: pointer;">
         <div class="column">
             <div class="col s12 m3">
             <div class="card" style="border-radius: 7px;">
@@ -203,27 +168,50 @@ function open(){
         return card;
     }
 
-    function createModel(charactername, src, desc, id){
-        var modelTemplate = `
-        <!--<div id="${id}" class="modal">-->
+    function createModal(character){
+        var events = '';
+        var series = '';
+        var comics = '';
+        console.log('Events', character.events.items);
+        console.log('Series', character.series.items);
+        console.log('Comics', character.comics.items);
+        if (character.events.items.length) {
+            events = `<ul/><b style="font-size: 20px;>Events</b>`;
+            for (var i = 0; i < character.events.items.length; i++) {
+                events += `<p>${character.events.items[i].name}</p>`;
+            }
+            events += `</ul>`;
+        }
+        if (character.series.items.length) {
+            series = `<ul/><b style="font-size: 20px;">Series</b>`;
+            for (var i = 0; i < character.series.items.length; i++) {
+                series += `<p>${character.series.items[i].name}</p>`;
+            }
+            series += `</ul>`;
+        }
+        if (character.comics.items.length) {
+            comics = `<ul/><b style="font-size: 20px;>Comics</b>`;
+            for (var i = 0; i < character.comics.items.length; i++) {
+                comics += `<p>${character.comics.items[i].name}</p>`;
+            }
+            comics += `</ul>`;
+        }
+        var modalTemplate = `
           <div class="modal-content">
-            <h4>${desc}</h4>
-            <p>A bunch of text</p>
-          </div>
-          <div class="modal-footer">
-            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+            <h4>${character.name}</h4>
+            <p>${character.description || 'No description available'}</p>
+            ${series}
+            ${events}
+            ${comics}
           </div>
         `;
 
-        var model = document.createElement('div');
-        model.id = `"${id}"`;
-        model.class = "modal";
-        model.innerHTML = modelTemplate;
-        return model;
+        var modal = document.createElement('div');
+        modal.id = character.id;
+        modal.classList = "modal";
+        modal.innerHTML = modalTemplate;
+        return modal;
     }
-
-
-
 
     function searchResponse(){
         var image = [];
@@ -241,26 +229,20 @@ function open(){
             description[i] = character.description;
 
 
-
             if(image[i] !== noImage && !nameRepeated(character.id)){
                 document.getElementById("card-row").insertBefore(
                     createCard(name[i], image[i], description[i], character.id),
                     document.getElementById("card-row").firstChild );
 
                 document.getElementById("stuff").insertBefore(
-                    createModel(name[i], image[i], description[i], character.id),
+                    createModal(character),
                     document.getElementById("stuff").firstChild );
             }
-
+            $('.modal').modal();
+            $('.trigger-modal').modal();
         }
         console.log(allCardsDisplayed);
     }
-
-
-
-
-
-
 
     function comicsResponse(){
         var response = JSON.parse(this.responseText);
@@ -274,20 +256,10 @@ function open(){
     get(characterRequest, searchResponse);
 }
 
-
-
-
-
-
 function getURLParameter(name) {
     return decodeURIComponent(
         (RegExp('[?|&]'+name + '=' + '(.+?)(&|$)').exec(location.search)||[null,null])[1]
     )
 }
-
-$(document).ready(function() {
-    $('.modal').modal();
-    $('.trigger-modal').modal();
-});
 
 open();
